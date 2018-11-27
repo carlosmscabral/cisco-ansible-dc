@@ -1,0 +1,8 @@
+---
+#  Applying roles to nxos devices. 
+
+  - name: Applying nxos-common role to all devices.
+    hosts: nxos-switches
+    gather_facts: no
+    roles:
+      - nxos-common

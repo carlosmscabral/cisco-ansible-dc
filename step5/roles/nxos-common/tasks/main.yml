@@ -1,0 +1,9 @@
+---
+# tasks file for nxos-common
+  - name: Locally defining config files via templates
+    template: src=interfaces.j2 dest=./conf_{{ inventory_hostname }}
+
+  - name: Pushing config to NX-OS devices
+    nxos_config: 
+      src: "./conf_{{ inventory_hostname }}" 
+      save_when: modified

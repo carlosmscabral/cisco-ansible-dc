@@ -1,0 +1,7 @@
+---
+# tasks file for leaf
+- name: Setting features for leaf
+  nxos_feature:
+    feature: "{{ item }}"
+    state: enabled
+  with_items: "{{ features }}"

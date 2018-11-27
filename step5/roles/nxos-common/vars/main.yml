@@ -1,0 +1,13 @@
+---
+# vars file for nxos-common
+l2_interfaces:
+  - 1/14
+  - 1/15
+  - 1/16
+  - 1/17
+
+l3_interfaces:
+  - 1/18
+  - 1/19
+  - 1/20
+  - 1/21

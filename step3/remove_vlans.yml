@@ -1,0 +1,63 @@
+---
+##  First, let's remove VLANs 100-105 in the NX-OS devices.
+
+  - name: Removing VLANs in NX-OS devices
+    hosts: nxos-switches
+    gather_facts: no
+    tasks:
+      - nxos_vlan:
+          vlan_range: "{{ vlan_start }}-{{ vlan_end }}"
+          state: absent
+
+
+##  Now, let's remove these VLANs (100-105) and the VLAN
+## pool in the APIC
+
+  - name: Removing VLANs from the APIC
+    hosts: apics
+    connection: local
+    gather_facts: no
+    tasks:
+      - name: Removing VLANs from VLAN pool
+        aci_vlan_pool_encap_block:
+          host: "{{ apic_host }}"
+          username: "{{ apic_username }}"
+          password: "{{ apic_password }}"
+          pool: clive_rocks
+          block_start: "{{ vlan_start }}"
+          block_end: "{{ vlan_end }}"
+          block_name: myBlock
+          pool_allocation_mode: dynamic
+          state: absent
+          validate_certs: False
+
+      - name: Deleting VLAN pool
+        aci_vlan_pool:
+          host: "{{ apic_host }}"
+          username: "{{ apic_username }}"
+          password: "{{ apic_password }}"
+          pool: clive_rocks
+          pool_allocation_mode: dynamic
+          state: absent
+          validate_certs: False
+
+
+
+
+
+
+##  Last, removing VLANs in UCS!
+
+  - name: Removing VLANs in UCS
+    hosts: ucs
+    connection: local
+    gather_facts: no
+    tasks:
+      - ucs_vlans:
+          hostname: "{{ ucs_host }}"
+          username: "{{ ucs_username }}"
+          password: "{{ ucs_password }}"
+          id: "{{ item }}"
+          name: VLAN-{{ item }}
+          state: absent
+        with_sequence: start={{ vlan_start }} end={{ vlan_end }}

@@ -1,0 +1,16 @@
+[ucs]
+198.18.133.91 ucs_username=admin ucs_password=C1sco12345
+
+[nxos-switches]
+198.18.134.140
+198.18.134.141
+
+[nxos-switches:vars]
+ansible_connection=network_cli
+ansible_network_os=nxos
+ansible_user=admin
+ansible_ssh_pass=C1sco12345
+ansible_command_timeout=45
+
+[apics]
+198.18.133.200 apic_username=admin apic_password=C1sco12345

@@ -1,0 +1,9 @@
+[ucs]
+ucs1
+
+[nxos-switches]
+198.18.134.140
+198.18.134.141
+
+[apics]
+apic1

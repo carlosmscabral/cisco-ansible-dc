@@ -1,0 +1,6 @@
+---
+# vars file for leaf
+features:
+  - bgp
+  - interface-vlan
+  - vnseg_vlan

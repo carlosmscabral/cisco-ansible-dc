@@ -1,0 +1,10 @@
+{% for iface in l3_interfaces %}
+interface Ethernet{{ iface }}
+  no switchport
+{% endfor %}
+
+{% for iface in l2_interfaces %}
+interface Ethernet{{ iface }}
+  switchport host
+{% endfor %}
+

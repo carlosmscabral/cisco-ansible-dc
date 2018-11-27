@@ -1,0 +1,20 @@
+---
+#  Applying roles to nxos devices. 
+
+  - name: Applying nxos-common role to all devices.
+    hosts: nxos-switches
+    gather_facts: no
+    roles:
+      - nxos-common
+
+  - name: Applying spine role to spine switches.
+    hosts: 198.18.134.140
+    gather_facts: no
+    roles:
+      - spine
+
+  - name: Applying leaf role to leaf switches.
+    hosts: 198.18.134.141
+    gather_facts: no
+    roles:
+      - leaf
