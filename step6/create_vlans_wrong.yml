@@ -1,0 +1,64 @@
+---
+##  First, let's create VLANs 100-105 in the NX-OS devices.
+
+  - name: Creating VLANs in NX-OS devices
+    hosts: 
+### there's no value to the key above!!! Ansible will complain
+    nxos-switches
+    gather_facts: no
+    tasks:
+      - nxos_vlan:
+          vlan_range: "100-105"
+          state: present
+          admin_state: up
+
+
+##  Now, let's add these VLANs (100-105) to a VLAN
+## pool in the APIC
+
+  - name: Adding VLANs to the APIC
+    hosts: apics
+    connection: local
+    gather_facts: no
+    tasks:
+      - name: Creating a VLAN pool
+        aci_vlan_pool:
+          host: "{{ inventory_hostname }}"
+          username: "{{ apic_username }}"
+          password: "{{ apic_password }}"
+          pool: clive_rocks
+          pool_allocation_mode: dynamic
+          description: The coolest VLANs you will ever see.
+          validate_certs: False
+
+      - name: Adding VLANs to VLAN pool
+        aci_vlan_pool_encap_block:
+          host: "{{ inventory_hostname }}"
+          username: "{{ apic_username }}"
+          password: "{{ apic_password }}"
+          pool: clive_rocks
+          block_start: 100
+          block_end: 105
+          block_name: myBlock
+          state: present
+          pool_allocation_mode: dynamic
+          validate_certs: False
+
+
+
+
+##  Last, creating VLANs in UCS!
+
+  - name: Creating VLANs in UCS
+    hosts: ucs
+    connection: local
+    gather_facts: no
+    tasks:
+      - ucs_vlans:
+          hostname: "{{ ucs_host }}"
+          username: "{{ ucs_username }}"
+          password: "{{ ucs_password }}"
+          name: VLAN-{{ item }}
+          id: "{{ item }}"
+          state: present
+        with_sequence: start=100 end=105

@@ -1,0 +1,24 @@
+---
+##  First, let's create VLANs 100-105 in the NX-OS devices.
+
+  - name: Creating VLANs in NX-OS devices
+    hosts: nxos-switches
+ #  gather_facts: no  ----> Gather facts takes time... if not using them
+ # always disable fact gathering!
+    tasks:
+      - nxos_vlan:
+          vlan_id: 200
+          state: present
+          admin_state: up
+      - nxos_vlan:
+          vlan_id: 201
+          state: present
+          admin_state: up
+      - nxos_vlan:
+          vlan_id: 202
+          state: present
+          admin_state: up
+      - nxos_vlan:
+          vlan_id: 203
+          state: present
+          admin_state: up

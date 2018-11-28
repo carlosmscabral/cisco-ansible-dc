@@ -1,0 +1,10 @@
+---
+
+  - name: Creating VLANs in NX-OS devices in a smarter way
+    hosts: nxos-switches
+    gather_facts: no
+    tasks:
+      - nxos_vlan:
+          vlan_range: "200-203"
+          state: present
+          admin_state: up

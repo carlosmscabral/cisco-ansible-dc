@@ -1,0 +1,48 @@
+---
+##  First, let's check if we can connect to the NX-OS devices.
+##  Here, we'll use a the nxos_facts module to populate a series
+## of variables. We'll then use a second module, debug, to print
+## one of these variables.
+
+  - name: Checking connectivity to NX-OS devices
+    hosts: nxos-switches
+    gather_facts: no
+    tasks:
+      - nxos_facts:
+
+      - debug: var=platform
+
+##  Next, let's check connectivity to the APIC. We'll query 
+## for all the existant tenants, save them on a variable all_tenants
+## and then print it with the debug module.
+
+  - name: Checking connectivity to the APIC
+    hosts: apics
+    connection: local
+    tasks:
+      - aci_tenant:
+          host: "{{ apic_host }}"
+          username: "{{ apic_username }}"
+          password: "{{ apic_password }}"
+          state: query
+          validate_certs: False
+        register: all_tenants
+
+      - debug: var=all_tenants
+
+
+
+###  For checking connectivity with UCS, we won't have right now 
+### a 'facts' module. So, we'll use a trick! Let's delete a VLAN
+### that we are sure does not exist!
+
+  - name: Checking connectivity to UCS
+    hosts: ucs
+    connection: local
+    tasks:
+      - ucs_vlans:
+          hostname: "{{ ucs_host }}"
+          username: "{{ ucs_username }}"
+          password: "{{ ucs_password }}"
+          name: testVlan123456
+          state: absent
