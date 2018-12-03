@@ -28,13 +28,19 @@ Another good resources is the Cisco DevNet Sandbox - https://developer.cisco.com
 # Understood. What do I need to install to get rolling?
 You can leverage your own Ansible installation - many of the playbooks here are assuming Ansible 2.5 or greater. Also, you'll need [ucsmsdk](https://github.com/CiscoUcs/ucsmsdk) - as it is needed in your Ansible control station for running UCS playbooks.
 
-BUT - if you are lazy just like myself, I've created [a container in DockerHub with everyhing you need](https://hub.docker.com/r/carlosmscabral/cisco-ansible-dc/) - Ansible, ucsmsdk, the correct version of Python, etc. The goal here is NOT having all the source code / Ansible playbooks embedded into the container, but rather a consistent running environment.  I like to use a simple [bind mount](https://docs.docker.com/storage/bind-mounts/) so I can share the contents of my laptop (where the code I've got from GitHub is) with the container runtime. Why? Because I like to have my native IDE (I use VSCode, but pick yours, of course!) to edit things, and also use all the binaries from the container without messing up with my local stuff. This is the command I use (assumes *nix environment).
+BUT - if you are lazy just like myself, I've created [a container in DockerHub with everyhing you need](https://hub.docker.com/r/carlosmscabral/cisco-ansible-dc/) - Ansible, ucsmsdk, the correct version of Python, etc. The goal here is NOT having all the source code / Ansible playbooks embedded into the container, but rather a consistent running environment.  I like to use a simple [bind mount](https://docs.docker.com/storage/bind-mounts/) so I can share the contents of my laptop (where the code I've got from GitHub is) with the container runtime. Why? Because I like to have my native IDE (I use VSCode, but pick yours, of course!) to edit things, and also use all the binaries from the container without messing up with my local stuff. 
+
+This is the look-and-feel I personally like working on - integrated IDE, terminal, etc.
+
+![ide-picture](https://github.com/carlosmscabral/cisco-ansible-dc/blob/master/docs/ide_snapshot.png)
+
+And this is the command I use (assumes *nix environment).
 
 ```bash
 docker run -d -it --name dc --mount type=bind,source="$(pwd)"/,target=/ansible carlosmscabral/cisco-dc-ansible
 ```
 
-The 'source' directory on the above command is where I've cloned this repository to. So, assuming you are using the container I provided and has already cloned the code from this repo, all you need to do is attach to your running container (`docker attach dc` as per the example above), get to your bind mount directory (`/ansible` as per the example as well) and then you can start having your Ansible fun with Cisco DC infrastructure!
+The 'source' directory on the above command is where I've cloned this repository to. So, assuming you are using the container I provided and have already cloned the code from this repo, all you need to do is attach to your running container (`docker attach dc` as per the example above), get to your bind mount directory (`/ansible` as per the example as well) and then you can start having your Ansible fun with Cisco DC infrastructure!
 
 # Resources / Links / Additional Content
  
