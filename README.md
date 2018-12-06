@@ -44,5 +44,12 @@ The 'source' directory on the above command is where I've cloned this repository
 
 # Resources / Links / Additional Content
  
+ - [DevNet main website](https://developer.cisco.com/)
+ - [DevNet - Intro to Ansible](https://learninglabs.cisco.com/modules/sdx-ansible-intro)
+ - [DevNet - Intro to Ansible and ACI](https://learninglabs.cisco.com/modules/ansible-aci-intro)
+ - [DevNet - UCS and Ansible](https://learninglabs.cisco.com/modules/dnw-dccp/dne-dcip-intermediate-programming-cisco-compute-ucs-ansible-v01/step/1)
+ - [UCSM SDK Python](https://github.com/CiscoUcs/ucsmsdk)
+ - [UCS Ansible](https://github.com/CiscoUcs/ucsm-ansible)
+ - [ACI Ansible Docs](https://docs.ansible.com/ansible/devel/scenario_guides/guide_aci.html)
 
  
